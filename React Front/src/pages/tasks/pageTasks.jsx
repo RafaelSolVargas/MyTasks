@@ -1,22 +1,23 @@
+/* Libraries */
 import { React, useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid'
 import axios from "axios";
+/* Components */
 import Header from "./Header";
 import Tasks from "./Tasks";
 import AddTask from "./AddTask";
-
+/* CSS */
 import '../../styles/App.css'
 
 const PageTasks = ({ Logout }) => {
     let [tasks, setTasks] = useState([])
+
     const handleTaskClick = (taskId) => {
-        // Função para, ao receber um taskId vai fazer um map nas tasks atuais, caso o taskId bata
-        // irá retornar a task respectiva com o valor de completed invertido
+        // This function invert the boolean status of a task after it get clicked
         const newTasks = tasks.map(task => {
             if (task.id === taskId) return { ...task, completed: !task.completed }
             return task
         })
-
         setTasks(newTasks)
     }
     const handleTaskDelete = (taskId) => {
@@ -39,6 +40,7 @@ const PageTasks = ({ Logout }) => {
         // Após criar o array de tasks ele usa a função setTasks para atualizar o Front 
         setTasks(newTasks)
     }
+
     useEffect(() => {
         // É criarmos uma função assíncrona dentro do useEffect e executar a busca na API por meio dela
         const fetchTasks = async () => {
@@ -55,11 +57,11 @@ const PageTasks = ({ Logout }) => {
     }, [])
 
     return (
-        <>
+        <div className='container'>
             <Header />
             <AddTask handleTaskAddition={handleTaskAddition} />
             <Tasks handleTaskClick={handleTaskClick} handleTaskDelete={handleTaskDelete} tasks={tasks} Logout={Logout} />
-        </>
+        </div>
     );
 }
 

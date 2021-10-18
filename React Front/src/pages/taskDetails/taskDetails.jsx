@@ -1,7 +1,9 @@
+/* Libraries */
 import React from "react";
 import { useParams, useHistory } from "react-router-dom";
-
+/* Components */
 import Button from '../../components/Button'
+/* CSS */
 import '../../styles/TaskDetails.css'
 import '../../styles/App.css'
 

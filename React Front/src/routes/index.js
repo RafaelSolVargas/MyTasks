@@ -15,7 +15,7 @@ import '../styles/App.css'
 const Routes = () => {
     const { signed } = useAuth()
     const { loadingData } = useLoading()
-
+    console.log(`Signed: ${signed}`)
     return signed ?
         (
             <>

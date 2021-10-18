@@ -1,13 +1,13 @@
+/* Libraries */
 import { React, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
-import Loading from "../components/Loading";
+/* Components */
 import LoginForm from "../pages/login/Login";
 import RegisterForm from "../pages/register/Register";
-
+/* CSS */
 import '../styles/App.css'
 
-// Cria duas rotas diferentes, uma aberta e outra privada, sendo que esta usa o componente personalizado que criamos
+// Create different routes for each URL that includes the authentication context 
 const AuthRouter = () => {
     console.log('Entrei no AuthRouter')
     const [error, setError] = useState('')
@@ -17,17 +17,8 @@ const AuthRouter = () => {
                 <Switch>
                     <Route exact path="/login" component={() => <LoginForm appError={error} setAppError={setError} />} />
                     <Route exact path='/register' component={() => <RegisterForm appError={error} setAppError={setError} />} />
-                    <Route exact path='/forgot' component={
-                        () => {
-                            (
-                                <>
-                                    <Loading loading={true} message='aoba' />
-                                    <RegisterForm appError={error} setAppError={setError} />
-                                </>
-                            )
-                        }
-                    } />
-                    <Route exact path='/loading' component={() => <Loading />} />
+                    <Route exact path='/forgot' component={() => <RegisterForm appError={error} setAppError={setError} />} />
+                    <Route exact path='*' component={() => <h1>Auth Router - Not Logged - 404 Not Found</h1>} />
                 </Switch>
             </BrowserRouter>
         </div>

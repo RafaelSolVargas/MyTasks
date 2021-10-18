@@ -5,25 +5,24 @@ import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
 /* Components */
 import Button from "../../components/Button";
 import loginValidate from "./loginValidate";
+/* Context */
 import { useAuth } from "../../contexts/authContext";
 /* CSS */
 import './Login.css'
 
-const LoginForm = ({ appError, setAppError }) => {
+const LoginForm = () => {
     const [values, setValues] = useState({ email: '', password: '' })
     const [errors, setErrors] = useState({ email: '', password: '' })
-    const history = useHistory()
     const { Login, loginError, setLoginError } = useAuth()
+    const history = useHistory()
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const [hasErrors, errorsFound] = loginValidate(values)
         setErrors(errorsFound)
 
-        if (!hasErrors) Login(values)
+        if (!hasErrors) Login(values, history)
     }
-
-    const handleLoginChange = e => setValues({ ...values, [e.target.name]: e.target.value })
     const handleRegisterClick = e => {
         setLoginError('') // Remove any App error and change to register
         history.push('/register')
@@ -45,6 +44,7 @@ const LoginForm = ({ appError, setAppError }) => {
             document.getElementById('hide-password').style.display = 'flex';
         }
     }
+    const handleLoginChange = e => setValues({ ...values, [e.target.name]: e.target.value })
 
     useEffect(() => {
         console.log('Componente Login Renderizado')

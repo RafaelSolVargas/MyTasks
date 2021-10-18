@@ -2,7 +2,7 @@
 import React from "react";
 import HashLoader from 'react-spinners/HashLoader'
 /* CSS */
-import './loading.css'
+import '../styles/loading.css'
 
 /* This component render and loading screen with z-index above all, and he can get called with
 the loading boolean, that defines if he will render or not, and the message string that shows an

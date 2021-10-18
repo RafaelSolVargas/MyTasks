@@ -26,20 +26,15 @@ const RegisterForm = () => {
     const { Register, registerError, setRegisterError } = useAuth();
     const history = useHistory()
 
-    useEffect(() => {
-        console.log('Componente Registro Renderizado')
-    }, [])
-
-    const handleRegisterChange = e => setValues({ ...values, [e.target.name]: e.target.value })
-    const handleLoginClick = e => {
-        setRegisterError('') // Remove any error that came from the principal Router
-        history.push('/login') // And sends the users to slash login
-    }
     const handleSubmit = e => {
         e.preventDefault(); // Forbidden the page to reload
         const [hasErrors, errorsFound] = validateRegister(values);
         setErrors(errorsFound)
-        if (!hasErrors) Register(values)
+        if (!hasErrors) Register(values, history)
+    }
+    const handleLoginClick = e => {
+        setRegisterError('') // Remove any error that came from the principal Router
+        history.push('/login') // And sends the users to slash login
     }
     const handleSeePasswordClick = e => {
         e.preventDefault();
@@ -67,6 +62,11 @@ const RegisterForm = () => {
             document.getElementById('hide-confirm-password').style.display = 'flex';
         }
     }
+    const handleRegisterChange = e => setValues({ ...values, [e.target.name]: e.target.value })
+
+    useEffect(() => {
+        console.log('Componente Registro Renderizado')
+    }, [])
 
     return (
         <>
