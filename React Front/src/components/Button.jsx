@@ -7,7 +7,7 @@ import '../styles/Button.css'
 // pela variável children
 const Button = ({ children, onClick, id = null }) => {
     return (
-        <button className='add-button' onClick={onClick} id={id}>
+        <button type='button' className='add-button' onClick={onClick} id={id}>
             {children}
         </button>
     );

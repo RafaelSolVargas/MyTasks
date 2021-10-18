@@ -1,4 +1,4 @@
-const { check } = require('express-validator');
+const { check, body } = require('express-validator');
 const {
     isOnlyLetters, searchEmail, validatePassword,
 } = require('../utils/functions');
@@ -34,6 +34,12 @@ module.exports = {
                     throw new Error('The password must have Minimum 10 and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character');
                 }
             }),
+        check('confirmPassword')
+            .notEmpty()
+            .withMessage('Confirmed Password cannot be empty')
+            .custom(async (value, { req }) => {
+                if (value !== req.body.password) throw new Error('Senhas diferentes');
+            })
     ],
     loginUserValidator: [
         check('email')

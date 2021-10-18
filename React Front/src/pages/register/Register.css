@@ -1,0 +1,116 @@
+.container-register {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 245px;
+    height: auto;
+    border: 2px solid chartreuse;
+    border-radius: 8px;
+    padding: 5px 30px 30px 30px;
+    z-index: 2;
+}
+.container-register h2 {
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid silver;
+    color: #FFF;
+    font-size: 28px;
+    font-weight: 300;
+
+}
+.inner-input { 
+    background: rgb(39, 37, 37);
+    margin-top: 4px;
+    height: 20px;
+    border-radius: 8px;
+    padding: 8px;
+}
+.form-group label {
+    display: block;
+    color: #FFF;
+    font-size: 14px;
+    transition: 0.4s;
+}
+.container-register input {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    background: rgb(39, 37, 37);
+    height: 20px;
+    width: 210px;
+    color: #FFF;
+    font-size: 12px;
+}
+.see-btn {
+    cursor: pointer;
+    color: #FFF;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    padding-top: 2px;
+    display: flex;
+}
+
+.container-register > .form-group {
+    margin-top: 20px;
+
+
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group:focus-within label{
+    color: chartreuse
+}
+.container-register .form-group .inner-input:focus-within{
+    box-shadow: 0px 0px 7px chartreuse;
+} 
+
+#btn-register-register {
+    width: 100%;
+    height: 30px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.questions-labels-register label {
+    display: block;
+    color: #FFF;
+    font-size: 11px;
+    transition: 0.4s;
+}
+
+.questions-labels-register {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+.questions-buttons-register {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+#btn-login-register  {
+    margin: 8px 0px;
+    width: 110px;
+    height: 25px;
+    font-size: 10px;
+}
+
+.app-error {
+    margin: -10px 0px 10px 0px;
+    text-align: center;
+    color: rgb(228, 98, 98);
+    font-size: 14px;
+}
+
+.validation-errors {
+    float: left;
+    font-size: 9px;
+    color: rgb(228, 98, 98);
+    height: 5px;
+}

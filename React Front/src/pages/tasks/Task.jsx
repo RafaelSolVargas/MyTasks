@@ -2,6 +2,7 @@ import React from "react";
 import { CgClose, CgInfo } from 'react-icons/cg'
 import { useHistory } from "react-router-dom";
 
+
 import '../../styles/Task.css'
 
 // É necessário que as funções onClick sejam configuradas como arrow functions sem parâmetros

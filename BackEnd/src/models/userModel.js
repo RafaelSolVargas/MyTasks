@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
                     }
                 },
                 afterCreate: async (user) => { // Gera o Token e apaga a senha
-                    user.dataValues.token = user.generateToken();
                     user.dataValues.password = undefined;
                 },
                 beforeBulkUpdate: async (user) => { // Salva a senha enviada para atualizar

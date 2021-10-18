@@ -1,9 +1,16 @@
 import React from "react";
+import Routes from "./routes"
+import { AuthProvider } from "./contexts/authContext";
+import { LoadingProvider } from "./contexts/loadingContext";
 
-import Routes from "./routes";
 // Coloca um estilo padrão em todo o App
 import './styles/index.css';
 
-const App = () => <Routes />;
+const App = () =>
+    <LoadingProvider>
+        <AuthProvider>
+            <Routes />
+        </AuthProvider>
+    </LoadingProvider>
 
 export default App;

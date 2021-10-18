@@ -5,7 +5,6 @@ const { User } = require('../models');
 module.exports = {
     createUser: async (req, res) => {
         const { name, email, password } = req.body;
-        console.log(req.body)
 
         /* Validation  */
         const errors = validationResult(req);
@@ -20,7 +19,9 @@ module.exports = {
                     email,
                 },
             );
-            return res.status(201).json({ user });
+            const token = user.generateToken();
+
+            return res.status(201).json({ user, token });
         } catch (erro) {
             console.log(erro)
             return res.status(500).json({ UncaughtError: erro.message });
@@ -39,7 +40,7 @@ module.exports = {
             return res.status(401).json({ error: 'Invalid password' });
         }
 
-        user.dataValues.token = user.generateToken();
-        return res.status(200).json({ user });
+        token = user.generateToken();
+        return res.status(200).json({ user, token });
     },
 };
