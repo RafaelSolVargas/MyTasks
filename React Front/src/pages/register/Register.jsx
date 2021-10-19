@@ -74,15 +74,15 @@ const RegisterForm = () => {
                 <div className='container-register'>
                     <h2>Register</h2>
                     <div className='form-group'>
-                        <label htmlFor='username'>Username: </label>
+                        <label htmlFor='name'>Username: </label>
                         <div className='inner-input'>
                             <input type='text' name='name' id='name' onChange={handleRegisterChange} placeholder='Choose a Username' />
                         </div>
-                        {errors.username && <span className='validation-errors'>{errors.username}</span>}
+                        {errors.name && <span className='validation-errors'>{errors.name}</span>}
 
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='name'>Email: </label>
+                        <label htmlFor='email'>Email: </label>
                         <div className='inner-input'>
                             <input type='text' name='email' id='email' onChange={handleRegisterChange} placeholder='Choose a email' />
                         </div>

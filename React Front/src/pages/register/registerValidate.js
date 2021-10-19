@@ -1,10 +1,9 @@
 export default function validateRegister(values) {
     let errors = {}
-
     if (!values.name.trim()) {
-        errors.username = 'Username is required';
-    } else if (!/^[A-Za-z]+/.test(values.name.trim())) {
-        errors.username = 'Username must have only letters';
+        errors.name = 'Username is required';
+    } else if (!/^[a-zA-Z ]+$/.test(values.name.trim())) {
+        errors.name = 'Username must have only letters';
     }
 
     if (!values.email) {

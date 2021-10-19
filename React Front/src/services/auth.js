@@ -5,8 +5,6 @@ export function Register(values) {
         api.post('/auth', values).then((response, request) => {
             resolve([false, response.data])
         }).catch((err) => {
-            console.log(err.response)
-            console.log(err.request)
             if (err.response) { /* If got a response back with some error, means that the server received the request */
                 if (err.response.data.ValidationErrors) { /* Check if we got some validation Error, in this case we send this to the component */
                     resolve([true, err.response.data.ValidationErrors[0].msg])

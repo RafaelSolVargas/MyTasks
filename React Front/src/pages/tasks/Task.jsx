@@ -9,7 +9,7 @@ const Task = ({ task, handleTaskClick, handleTaskDelete }) => {
     const history = useHistory()
 
     const handleTaskDetailsClick = () => {
-        history.push(`/${task.title}`)
+        history.push(`/tasks/${task.id}`)
     }
 
     return (

@@ -1,17 +1,17 @@
 /* Libraries */
-import { React, useState, useEffect } from "react";
+import { React } from "react";
 import { v4 as uuidv4 } from 'uuid'
-import axios from "axios";
 /* Components */
 import Header from "./Header";
 import Tasks from "./Tasks";
 import AddTask from "./AddTask";
+/* Context */
+import { useTasks } from "../../contexts/tasksContext";
 /* CSS */
 import '../../styles/App.css'
 
 const PageTasks = ({ Logout }) => {
-    let [tasks, setTasks] = useState([])
-
+    const { tasks, setTasks } = useTasks()
     const handleTaskClick = (taskId) => {
         // This function invert the boolean status of a task after it get clicked
         const newTasks = tasks.map(task => {
@@ -40,21 +40,6 @@ const PageTasks = ({ Logout }) => {
         // Após criar o array de tasks ele usa a função setTasks para atualizar o Front 
         setTasks(newTasks)
     }
-
-    useEffect(() => {
-        // É criarmos uma função assíncrona dentro do useEffect e executar a busca na API por meio dela
-        const fetchTasks = async () => {
-            // Faz o get em uma API, e retira somente o data do response
-            const { data } = await axios.get(
-                "https://jsonplaceholder.cypress.io/todos?_limit=10"
-            )
-
-            setTasks(data)
-        }
-        // O array vazio como segundo argumento da função avisa que essa função não observa nenhuma constante, logo ela só será 
-        // executada quando o componente for renderizado pela primeira vez
-        fetchTasks()
-    }, [])
 
     return (
         <div className='container'>
