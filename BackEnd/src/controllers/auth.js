@@ -23,7 +23,6 @@ module.exports = {
 
             return res.status(201).json({ user, token });
         } catch (erro) {
-            console.log(erro)
             return res.status(500).json({ UncaughtError: erro.message });
         }
     },

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const teste = require('../config/authEnv')
+const authConfig = require('../config/authEnv')
 const { User } = require('../models');
 
 module.exports = {
@@ -22,6 +22,8 @@ module.exports = {
             // Busca o usuário, verificando se ele ainda existe, e passando para os próximos middlewares
             if (!user) { return res.status(401).json({ error: 'User not found' }); }
 
+            res.locals.user = user
+            res.locals.userId = user.id
             return next(); // Continua a requisição com o usuário autenticado
         });
     },

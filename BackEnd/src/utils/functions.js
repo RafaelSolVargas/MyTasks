@@ -24,4 +24,8 @@ module.exports = {
         ) { return false; }
         return true;
     },
+    isOnlyLettersNumberSpecials: async (text) => {
+        if (text.search(/[^ A-zÀ-ú0-9,._#?ºª$^+=!@()%]/) !== -1) return false
+        else return true
+    }
 };
