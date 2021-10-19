@@ -18,7 +18,7 @@ module.exports = {
             .if(body('description').exists())
             .custom(async (value) => {
                 if (!await isOnlyLettersNumberSpecials(value)) { throw new Error('Description has invalid characters'); }
-            })
+            }),
     ],
     updateTaskValidator: [
         /* Name - Somente Letras */
@@ -32,6 +32,10 @@ module.exports = {
             .if(body('description').exists())
             .custom(async (value) => {
                 if (!await isOnlyLettersNumberSpecials(value)) { throw new Error('Description has invalid characters'); }
-            })
+            }),
+        check('completed')
+            .if(body('completed').exists())
+            .isBoolean()
+            .withMessage('Completed must be boolean value')
     ],
 };

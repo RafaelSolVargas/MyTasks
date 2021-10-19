@@ -20,13 +20,18 @@ module.exports = {
         allowNull: false,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       dateRegistration: {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      completed: {
+        type: Sequelize.BOOLEAN,
+        default: false,
+        allowNull: false,
+      }
     });
   },
 

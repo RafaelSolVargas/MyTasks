@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         'Task',
         {
             title: DataTypes.STRING,
-            description: DataTypes.STRING,
+            description: DataTypes.TEXT,
+            completed: DataTypes.BOOLEAN,
         },
         {
             sequelize,

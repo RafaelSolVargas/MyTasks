@@ -22,7 +22,7 @@ module.exports = {
     },
     updateTask: async (req, res) => {
         const { taskId } = req.params;
-        const { title, description } = req.body;
+        const { title, description, completed } = req.body;
 
         /* Validation  */
         const errors = validationResult(req);
@@ -34,6 +34,7 @@ module.exports = {
                 {
                     title,
                     description,
+                    completed
                 },
                 {
                     where: {
@@ -62,6 +63,7 @@ module.exports = {
                     userId,
                     title,
                     description,
+                    completed: false,
                 },
             );
 
