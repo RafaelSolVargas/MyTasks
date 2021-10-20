@@ -6,10 +6,12 @@ import Task from './Task'
 import Button from "../../components/Button";
 /* Context */
 import { useAuth } from "../../contexts/authContext";
+import { useTasks } from "../../contexts/tasksContext";
 
 // A div de Tasks renderiza uma Task para cada valor que veio de seu ancestral
-const Tasks = ({ tasks, handleTaskClick, handleTaskDelete }) => {
+const Tasks = () => {
     const { Logout } = useAuth()
+    const { tasks, tasksLoaded } = useTasks()
     const history = useHistory()
 
     function handleLogout() {
@@ -18,15 +20,19 @@ const Tasks = ({ tasks, handleTaskClick, handleTaskDelete }) => {
 
     return (
         <>
-            {tasks.map(task =>
-                <Task
-                    key={task.id}
-                    task={task}
-                    handleTaskClick={handleTaskClick}
-                    handleTaskDelete={handleTaskDelete} />)}
-            <div>
-                {<Button children='Logout' onClick={handleLogout}></Button>}
-            </div>
+            {tasksLoaded ?
+                <>
+                    {tasks.map(eachTask =>
+                        <Task
+                            key={eachTask.id}
+                            task={eachTask}
+                        />)}
+                    <div>
+                        {<Button children='Logout' onClick={handleLogout}></Button>}
+                    </div>
+                </>
+                :
+                null}
         </>
 
     )

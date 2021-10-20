@@ -29,9 +29,6 @@ const TaskDetails = () => {
     const { getTask, tasks } = useTasks()
     const { hideLoading, showLoading } = useLoading()
 
-    /* const [ count, setCount ] = useState(0)
-    const countRef = useRef(count) */
-
     const handleBackButtonClick = () => {
         /* Uses the history context to get the user back to where he was */
         history.goBack()
@@ -72,8 +69,7 @@ const TaskDetails = () => {
                     <div className='task-details-container'>
                         <h2>{task.title && task.title}</h2>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis consequatur consectetur nihil quae laboriosam
-                            modi, omnis eos dolore perferendis reiciendis.
+                            {task.description}
                         </p>
                     </div>
                 </div>
