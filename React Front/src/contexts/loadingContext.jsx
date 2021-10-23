@@ -1,15 +1,21 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useRef } from "react";
 
 const LoadingContext = createContext();
 
 const LoadingProvider = ({ children }) => {
-    const [loadingData, setLoadingData] = useState({ isLoading: false, message: '' })
+    const [loadingData, setLoadingData] = useState({ isLoading: false, message: '', priority: false })
+    const loadingDataRef = useRef(loadingData)
+    loadingDataRef.current = loadingData
 
-    function showLoading(message) {
-        setLoadingData({ isLoading: true, message })
+    function showLoading(message, priority) {
+        /* The priority property now sets if this loading screen could be hide by anyone or not */
+        setLoadingData({ isLoading: true, message, priority })
     }
-    function hideLoading() {
-        setLoadingData({ isLoading: false, message: '' })
+    function hideLoading(message) {
+        /* I changed the workflow of the loading screen, now when an component call this function he could set the priority parameter that
+        allows only him to hide the Loading screen, this avoid context and components conflicts using the Loading Screen */
+        if (loadingDataRef.current.message === message || !loadingDataRef.current.priority)
+            setLoadingData({ isLoading: false, message: '', priority: false })
     }
 
     return (

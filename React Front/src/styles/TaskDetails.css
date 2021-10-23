@@ -14,17 +14,77 @@
     border-radius: 5px;
 }
 
+.title-button {
+    display: grid;
+    grid-template-columns: 16fr 1fr;
+}
+.edit-button, .apply-button{
+    cursor: pointer;
+    color: #eee;
+    align-self: center;
+}
+
+.edit-button-container {
+    height: 40px;
+    display: flex;
+}
 .task-details-container h2 {
-    font-size: 30px;
+    font-size: 26px;
     margin-bottom: 5px;
     color: chartreuse;
 }
-
 .task-details-container p {
     font-size: 16px;
 }
-
 .back-button-container {
     width: 30%;
     margin-top: 10px;
+}
+.date-registration {
+    margin-top: 15px;
+    display: flex;
+    font-size: 12px;
+    align-self: center;
+}
+
+#title-input {
+    height: 40px;
+    padding: 0px 10px;
+    margin-bottom: 20px;
+    border: none;
+    width: 80%;
+    border-radius: 5px;
+    flex: 2;
+    background-color: rgb(48, 46, 46);
+    color: chartreuse;
+    font-size: 16px;
+}
+
+#description-input {
+    height: 60px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgb(48, 46, 46);
+    color: #eee;
+    font-size: 15px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.linha {
+    border: 0.5px solid silver;
+}
+
+.completed-task {
+    color: chartreuse;
+    margin: 20px 0px 5px 0px;
+    font-size: 10px;
+    text-align: center;
+}
+.not-completed-task {
+    color: rgb(228, 98, 98);
+    margin: 20px 0px 5px 0px;
+    font-size: 10px;
+    text-align: center;
 }

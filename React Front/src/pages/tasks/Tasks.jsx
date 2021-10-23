@@ -32,7 +32,9 @@ const Tasks = () => {
                     </div>
                 </>
                 :
-                null}
+                <>
+                    {<Button children='Logout' onClick={handleLogout}></Button>}
+                </>}
         </>
 
     )

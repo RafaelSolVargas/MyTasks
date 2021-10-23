@@ -29,15 +29,17 @@ const TaskProvider = ({ children }) => {
         showLoading('Loading your tasks')
         const [hasErrors, response] = await LoadTasks() /* Make a request in API for tasks */
         if (hasErrors) {
-            console.log('Error in Loading Tasks')
-            hideLoading()
+            hideLoading('Loading your tasks')
             return setTaskError(response)
         }
         else {
-            console.log('Tasks loaded without Error')
+            for (let i = 0; i < response.length; i++) {
+                response[i].dateRegistration = new Date(response[i].dateRegistration).toLocaleString()
+            }
+
             setTasks(response) /* We set the tasks */
             setTasksLoaded(true) /* And tell the APP that tasks are available */
-            hideLoading()
+            hideLoading('Loading your tasks')
         }
     }
 
@@ -55,7 +57,7 @@ const TaskProvider = ({ children }) => {
                     title: response.task.title,
                     completed: response.task.completed,
                     description: response.task.description,
-                    dateRegistration: response.task.dateRegistration,
+                    dateRegistration: new Date(response.task.dateRegistration).toLocaleString(),
                 }
             ]
 
@@ -64,10 +66,13 @@ const TaskProvider = ({ children }) => {
     }
 
     async function updateTask(values, taskId) {
+        showLoading('Updating your task')
         const [hasErrors, response] = await UpdateTask(values, taskId)
         if (hasErrors) {
+            hideLoading('Updating your task')
             setTaskError(response)
         } else {
+            hideLoading('Updating your task')
             /* If the update tasks request was successful we change the App tasks state */
             const newTasks = tasks.map(task => {
                 if (task.id === taskId) {

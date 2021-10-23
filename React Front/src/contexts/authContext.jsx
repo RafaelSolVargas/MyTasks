@@ -29,6 +29,7 @@ const AuthProvider = ({ children }) => {
     async function Login(values, history) {
         showLoading('Sending your data...') /* Show the loading screen with this message */
         const [hasErrors, response] = await auth.Login(values)
+        console.log('Login HideLoading')
         hideLoading() /* Hide the loading screen */
 
         if (hasErrors) {
@@ -46,6 +47,7 @@ const AuthProvider = ({ children }) => {
     async function Register(values, history) {
         showLoading('Sending your data...') /* Show the loading screen with this message */
         const [hasErrors, response] = await auth.Register(values)
+        console.log('Register HideLoading')
         hideLoading() /* Hide the loading screen after the request */
 
         if (hasErrors) {

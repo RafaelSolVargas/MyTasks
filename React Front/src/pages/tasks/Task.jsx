@@ -14,7 +14,6 @@ const Task = ({ task }) => {
     const handleTaskDetailsClick = () => {
         history.push(`/tasks/${task.id}`)
     }
-
     return (
         <div className='task-container'
             style={task.completed ? { borderLeft: '6px solid chartreuse' } : {}}>
