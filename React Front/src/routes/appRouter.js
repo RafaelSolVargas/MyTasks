@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 /* Components */
 import PageTasks from '../pages/tasks/pageTasks';
 import TaskDetails from '../pages/taskDetails/taskDetails'
+import NotFoundApp from "../pages/404App/NotFoundApp";
 /* Context */
 import { TaskProvider } from '../contexts/tasksContext';
 /* CSS */
@@ -19,7 +20,7 @@ const AppRouter = () => {
                     <Switch>
                         <Route exact path="/tasks" component={PageTasks} />
                         <Route exact path="/tasks/:taskId" component={TaskDetails} />
-                        <Route path='*' component={() => <h1>App Router - Logged - 404 Not Found</h1>} />
+                        <Route path='*' component={NotFoundApp} />
                     </Switch>
                 </TaskProvider>
             </BrowserRouter>
