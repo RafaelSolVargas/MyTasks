@@ -3,6 +3,7 @@ const cors = require('cors');
 const router = require('./routes/index');
 require('./models/index');
 
+
 class AppController {
     constructor() {
         this.express = express();
