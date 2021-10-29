@@ -1,5 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { useHistory } from 'react-router-dom'
+/* API */
 import { CreateTask, LoadTasks, UpdateTask, DeleteTask } from "../services/tasks";
+/* Context */
+import { useAuth } from "./authContext";
 import { useLoading } from "./loadingContext";
 
 const tasksContext = createContext();
@@ -9,7 +13,8 @@ const TaskProvider = ({ children }) => {
     const [taskError, setTaskError] = useState('')
     const [tasksLoaded, setTasksLoaded] = useState(false)
     const { showLoading, hideLoading } = useLoading()
-
+    const { Logout } = useAuth()
+    const history = useHistory()
 
     /* Hook to load tasks from API in loading page */
     useEffect(() => {
@@ -30,7 +35,18 @@ const TaskProvider = ({ children }) => {
         const [hasErrors, response] = await LoadTasks() /* Make a request in API for tasks */
         if (hasErrors) {
             hideLoading('Loading your tasks')
-            return setTaskError(response)
+
+            if (response === 'Unauthorized') {
+                /* Show a loading screen telling the user that he must login again */
+                showLoading('You need to authenticate again, redirecting you to login page...')
+                setTimeout(() => {
+                    hideLoading('You need to authenticate again, redirecting you to login page...')
+                }, 2000)
+                /* If this happens, that means that the backEnd doesn't accept the token of this users, and then we will force him
+                to login again */
+                Logout(history)
+            }
+            else setTaskError(response)
         }
         else {
             for (let i = 0; i < response.length; i++) {
@@ -47,7 +63,21 @@ const TaskProvider = ({ children }) => {
     async function createTask(values) {
         const [hasErrors, response] = await CreateTask(values)
         /* If there is some error we set him to Component show to User */
-        if (hasErrors) return setTaskError(response)
+        if (hasErrors) {
+            hideLoading('Loading your tasks')
+
+            if (response === 'Unauthorized') {
+                /* Show a loading screen telling the user that he must login again */
+                showLoading('You need to authenticate again, redirecting you to login page...')
+                setTimeout(() => {
+                    hideLoading('You need to authenticate again, redirecting you to login page...')
+                }, 2000)
+                /* If this happens, that means that the backEnd doesn't accept the token of this users, and then we will force him
+                to login again */
+                Logout(history)
+            }
+            else setTaskError(response)
+        }
         /* If not we add the new task returned by de DB to tasks list */
         else {
             const newTasks = [
@@ -69,9 +99,21 @@ const TaskProvider = ({ children }) => {
         showLoading('Updating your task')
         const [hasErrors, response] = await UpdateTask(values, taskId)
         if (hasErrors) {
-            hideLoading('Updating your task')
-            setTaskError(response)
-        } else {
+            hideLoading('Loading your tasks')
+
+            if (response === 'Unauthorized') {
+                /* Show a loading screen telling the user that he must login again */
+                showLoading('You need to authenticate again, redirecting you to login page...')
+                setTimeout(() => {
+                    hideLoading('You need to authenticate again, redirecting you to login page...')
+                }, 2000)
+                /* If this happens, that means that the backEnd doesn't accept the token of this users, and then we will force him
+                to login again */
+                Logout(history)
+            }
+            else setTaskError(response)
+        }
+        else {
             hideLoading('Updating your task')
             /* If the update tasks request was successful we change the App tasks state */
             const newTasks = tasks.map(task => {
@@ -89,8 +131,21 @@ const TaskProvider = ({ children }) => {
         task.completed = !task.completed
         const [hasErrors, response] = await UpdateTask(task, task.id)
         if (hasErrors) {
-            setTaskError(response)
-        } else {
+            hideLoading('Loading your tasks')
+
+            if (response === 'Unauthorized') {
+                /* Show a loading screen telling the user that he must login again */
+                showLoading('You need to authenticate again, redirecting you to login page...')
+                setTimeout(() => {
+                    hideLoading('You need to authenticate again, redirecting you to login page...')
+                }, 2000)
+                /* If this happens, that means that the backEnd doesn't accept the token of this users, and then we will force him
+                to login again */
+                Logout(history)
+            }
+            else setTaskError(response)
+        }
+        else {
             /* If the update tasks request was successful we change the App tasks state */
             const newTasks = tasks.map(oldTask => {
                 if (oldTask.id === task.id) {
@@ -106,8 +161,21 @@ const TaskProvider = ({ children }) => {
     async function deleteTask(taskId) {
         const [hasErrors, response] = await DeleteTask(taskId)
         if (hasErrors) {
-            setTaskError(response)
-        } else {
+            hideLoading('Loading your tasks')
+
+            if (response === 'Unauthorized') {
+                /* Show a loading screen telling the user that he must login again */
+                showLoading('You need to authenticate again, redirecting you to login page...')
+                setTimeout(() => {
+                    hideLoading('You need to authenticate again, redirecting you to login page...')
+                }, 2000)
+                /* If this happens, that means that the backEnd doesn't accept the token of this users, and then we will force him
+                to login again */
+                Logout(history)
+            }
+            else setTaskError(response)
+        }
+        else {
             /* If the deleted request was successfully, we change the App tasks state */
             const newTasks = tasks.filter((task) => task.id !== taskId)
             setTasks(newTasks)
