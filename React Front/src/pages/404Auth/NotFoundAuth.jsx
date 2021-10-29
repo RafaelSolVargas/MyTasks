@@ -10,7 +10,7 @@ const NotFoundAuth = () => {
     const history = useHistory()
 
     const handleLoginClick = e => {
-        history.push('/login') // Sends the users to slash login
+        history.push('/') // Sends the users to start screen to login
     }
 
     return (

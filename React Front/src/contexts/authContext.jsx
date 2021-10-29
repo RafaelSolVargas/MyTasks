@@ -20,7 +20,6 @@ const AuthProvider = ({ children }) => {
         const storedToken = localStorage.getItem('Tasks:token')
 
         if (storedUser && storedToken) {
-            console.log('Stored Data Found')
             setUser(JSON.parse(storedUser))
             api.defaults.headers.Authorization = `Bearer ${storedToken}`
         }
@@ -29,7 +28,6 @@ const AuthProvider = ({ children }) => {
     async function Login(values, history) {
         showLoading('Sending your data...') /* Show the loading screen with this message */
         const [hasErrors, response] = await auth.Login(values)
-        console.log('Login HideLoading')
         hideLoading() /* Hide the loading screen */
 
         if (hasErrors) {
@@ -40,14 +38,13 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem('Tasks:user', JSON.stringify(response.user)); /* Store the user in local Storage */
             localStorage.setItem('Tasks:token', response.token) /* Store the token if needed, i'm not sure if does */
             /* The two following lines should be in that order */
-            history.push('/tasks') /* Change the URL to send the user to tasks dashboard */
+            history.push('/') /* Change the URL to send the user to tasks dashboard */
             setUser(response.user) /* Authenticate the user */
         }
     }
     async function Register(values, history) {
         showLoading('Sending your data...') /* Show the loading screen with this message */
         const [hasErrors, response] = await auth.Register(values)
-        console.log('Register HideLoading')
         hideLoading() /* Hide the loading screen after the request */
 
         if (hasErrors) {
@@ -57,14 +54,14 @@ const AuthProvider = ({ children }) => {
             api.defaults.headers.Authorization = `Bearer ${response.token}`
             localStorage.setItem('Tasks:user', JSON.stringify(response.user));
             localStorage.setItem('Tasks:token', response.token)
-            history.push('/tasks') /* Change the URL to send the user to tasks dashboard */
+            history.push('/') /* Change the URL to send the user to tasks dashboard */
             setUser(response.user) /* Authenticate the user */
         }
     }
     async function Logout(history) {
         localStorage.clear()
         setUser()
-        history.push('/login')
+        history.push('/')
     }
 
     return (

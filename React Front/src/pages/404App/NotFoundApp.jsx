@@ -10,7 +10,7 @@ const NotFoundApp = () => {
     const history = useHistory()
 
     const handleTasksClick = e => {
-        history.push('/tasks') // Sends the users to slash login
+        history.push('/') // Sends the users tasks screen
     }
 
     return (

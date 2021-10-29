@@ -1,5 +1,5 @@
 /* Libraries */
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { useHistory } from 'react-router-dom'
 /* Components */
 import Button from "../../components/Button";
@@ -17,14 +17,10 @@ const ForgotForm = () => {
         setErrors('')
     }
     const handleLoginClick = e => {
-        history.push('/login') // Sends the users to slash login
+        history.push('/') // Sends the users to login screen
     }
     const handleEmailChange = e => setEmail(e.target.value)
 
-
-    useEffect(() => {
-        console.log('Componente Registro Renderizado')
-    }, [])
 
     return (
         <>
@@ -32,6 +28,7 @@ const ForgotForm = () => {
                 <div className='container-forgot'>
                     <h2>Forgot Password</h2>
                     <div className='form-group'>
+                        <span className='message-implemented'>This feature is not implemented yet</span>
                         <label htmlFor='email'>Your Email: </label>
                         <div className='inner-input'>
                             <input type='email' name='email' value={email} id='email' onChange={handleEmailChange} placeholder='Your email' />

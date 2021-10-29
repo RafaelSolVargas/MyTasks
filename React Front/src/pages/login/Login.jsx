@@ -1,5 +1,5 @@
 /* Libraries */
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { useHistory } from "react-router";
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
 /* Components */
@@ -45,10 +45,6 @@ const LoginForm = () => {
         }
     }
     const handleLoginChange = e => setValues({ ...values, [e.target.name]: e.target.value })
-
-    useEffect(() => {
-        console.log('Componente Login Renderizado')
-    }, [])
 
     return (
         <form>

@@ -12,7 +12,7 @@ const Task = ({ task }) => {
     const { deleteTask, updateTaskStatus } = useTasks()
 
     const handleTaskDetailsClick = () => {
-        history.push(`/tasks/${task.id}`)
+        history.push(`tasks/${task.id}`)
     }
     return (
         <div className='task-container'

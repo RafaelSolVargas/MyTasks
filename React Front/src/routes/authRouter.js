@@ -11,13 +11,12 @@ import '../styles/App.css'
 
 // Create different routes for each URL that includes the authentication context 
 const AuthRouter = () => {
-    console.log('Entrei no AuthRouter')
     const [error, setError] = useState('')
     return (
         <div>
             <BrowserRouter>
                 <Switch>
-                    <Route exact path="/login" component={() => <LoginForm appError={error} setAppError={setError} />} />
+                    <Route exact path="/" component={() => <LoginForm appError={error} setAppError={setError} />} />
                     <Route exact path='/register' component={() => <RegisterForm appError={error} setAppError={setError} />} />
                     <Route exact path='/forgot' component={() => <ForgotForm appError={error} setAppError={setError} />} />
                     <Route exact path='*' component={NotFoundAuth} />

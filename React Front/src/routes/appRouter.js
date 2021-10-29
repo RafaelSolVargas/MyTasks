@@ -12,13 +12,12 @@ import '../styles/App.css'
 
 // Create different routes for the URL accessed by authenticated users
 const AppRouter = () => {
-    console.log('Entrei no AppRouter')
     return (
         <div>
             <BrowserRouter>
                 <TaskProvider>
                     <Switch>
-                        <Route exact path="/tasks" component={PageTasks} />
+                        <Route exact path="/" component={PageTasks} />
                         <Route exact path="/tasks/:taskId" component={TaskDetails} />
                         <Route path='*' component={NotFoundApp} />
                     </Switch>

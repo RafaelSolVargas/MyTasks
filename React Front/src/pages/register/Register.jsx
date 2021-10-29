@@ -1,5 +1,5 @@
 /* Libraries */
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { useHistory } from 'react-router-dom'
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
 /* Components */
@@ -34,7 +34,7 @@ const RegisterForm = () => {
     }
     const handleLoginClick = e => {
         setRegisterError('') // Remove any error that came from the principal Router
-        history.push('/login') // And sends the users to slash login
+        history.push('/') // And sends the users to login screen
     }
     const handleSeePasswordClick = e => {
         e.preventDefault();
@@ -63,10 +63,6 @@ const RegisterForm = () => {
         }
     }
     const handleRegisterChange = e => setValues({ ...values, [e.target.name]: e.target.value })
-
-    useEffect(() => {
-        console.log('Componente Registro Renderizado')
-    }, [])
 
     return (
         <>
