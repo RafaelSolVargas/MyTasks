@@ -13,12 +13,15 @@ class AppController {
     middlewares() {
         this.express.use(express.json());
         this.express.use(express.urlencoded({ extended: true }));
-        this.express.use(cors('*'));
+        this.express.use(cors());
         // this.express.use(cors(process.env.FRONT_END_URL));
     }
 
     routes() {
         this.express.use('/api/v1/', router);
+        this.express.get('/teste', (req, res) => {
+            return res.json({ message: 'Ok' })
+        })
     }
 }
 
