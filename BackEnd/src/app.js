@@ -13,7 +13,8 @@ class AppController {
     middlewares() {
         this.express.use(express.json());
         this.express.use(express.urlencoded({ extended: true }));
-        this.express.use(cors(process.env.FRONT_END_URL));
+        this.express.use(cors('*'));
+        // this.express.use(cors(process.env.FRONT_END_URL));
     }
 
     routes() {
