@@ -1,4 +1,4 @@
-const env = process.env.NODE_ENV || 'development';
-const config = require('../config/databaseEnv')[env]
+const env = process.env.NODE_ENV || 'production';
+let config = require('../config/databaseEnv')[env]
 
 module.exports = config;

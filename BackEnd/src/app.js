@@ -1,8 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const router = require('./routes/index');
-require('./models/index');
-
 
 class AppController {
     constructor() {
@@ -15,7 +13,7 @@ class AppController {
     middlewares() {
         this.express.use(express.json());
         this.express.use(express.urlencoded({ extended: true }));
-        this.express.use(cors('*'));
+        this.express.use(cors(process.env.FRONT_END_URL));
     }
 
     routes() {

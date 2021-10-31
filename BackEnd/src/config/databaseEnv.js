@@ -8,7 +8,7 @@ module.exports = {
         database: process.env.DEV_DB_NAME,
         host: process.env.DEV_DB_HOST,
         port: process.env.DEV_DB_PORT,
-        dialect: 'postgres',
+        dialect: 'postgresql',
         define: {
             freezeTableName: true,
             timestamps: false,
@@ -20,7 +20,7 @@ module.exports = {
         database: process.env.TEST_DB_NAME,
         host: process.env.TEST_DB_HOST,
         port: process.env.TEST_DB_PORT,
-        dialect: 'postgres',
+        dialect: 'postgresql',
         define: {
             freezeTableName: true,
             timestamps: false,
@@ -32,10 +32,16 @@ module.exports = {
         database: process.env.PROD_DB_NAME,
         host: process.env.PROD_DB_HOST,
         port: process.env.PROD_DB_PORT,
-        dialect: 'postgres',
+        dialect: 'postgresql',
         define: {
             freezeTableName: true,
             timestamps: false,
+        },
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
         },
     },
 };
