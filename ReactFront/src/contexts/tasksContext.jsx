@@ -35,7 +35,6 @@ const TaskProvider = ({ children }) => {
         const [hasErrors, response] = await LoadTasks() /* Make a request in API for tasks */
         if (hasErrors) {
             hideLoading('Loading your tasks')
-
             if (response === 'Unauthorized') {
                 /* Show a loading screen telling the user that he must login again */
                 showLoading('You need to authenticate again, redirecting you to login page...')
@@ -49,6 +48,7 @@ const TaskProvider = ({ children }) => {
             else setTaskError(response)
         }
         else {
+            console.log('Carregando Tasks')
             for (let i = 0; i < response.length; i++) {
                 response[i].dateRegistration = new Date(response[i].dateRegistration).toLocaleString()
             }
@@ -59,8 +59,8 @@ const TaskProvider = ({ children }) => {
         }
     }
 
-    /* Send the values to create a new Task in DB */
     async function createTask(values) {
+        /* Send the values to create a new Task in DB */
         const [hasErrors, response] = await CreateTask(values)
         /* If there is some error we set him to Component show to User */
         if (hasErrors) {
