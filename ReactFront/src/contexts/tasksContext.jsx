@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useHistory } from 'react-router-dom'
 /* API */
-import { CreateTask, LoadTasks, UpdateTask, DeleteTask } from "../services/tasks";
+import { CreateTask, UpdateTask, DeleteTask } from "../services/tasks";
 /* Context */
 import { useAuth } from "./authContext";
 import { useLoading } from "./loadingContext";
@@ -13,13 +13,21 @@ const TaskProvider = ({ children }) => {
     const [taskError, setTaskError] = useState('')
     const [tasksLoaded, setTasksLoaded] = useState(false)
     const { showLoading, hideLoading } = useLoading()
-    const { Logout } = useAuth()
+    const { Logout, user } = useAuth()
     const history = useHistory()
 
     /* Hook to load tasks from API in loading page */
     useEffect(() => {
-        /* I disabled the ESLint plugin because i'm sure that this asynchronous function should run just one time, when the component mount */
-        loadTasks()
+        if (user.userTasks) {
+            showLoading('Loading Tasks')
+
+            for (let i = 0; i < user.userTasks.length; i++) {
+                user.userTasks[i].dateRegistration = new Date(user.userTasks[i].dateRegistration).toLocaleString()
+            }
+            setTasks(user.userTasks)
+            setTasksLoaded(true)
+            hideLoading('Loading Tasks')
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -29,48 +37,18 @@ const TaskProvider = ({ children }) => {
         return task
     }
 
-    async function loadTasks() {
-        /* Inicialize the loading page while we load their tasks */
-        showLoading('Loading your tasks')
-        const [hasErrors, response] = await LoadTasks() /* Make a request in API for tasks */
-        if (hasErrors) {
-            hideLoading('Loading your tasks')
-            if (response === 'Unauthorized') {
-                /* Show a loading screen telling the user that he must login again */
-                showLoading('You need to authenticate again, redirecting you to login page...')
-                setTimeout(() => {
-                    hideLoading('You need to authenticate again, redirecting you to login page...')
-                }, 2000)
-                /* If this happens, that means that the backEnd doesn't accept the token of this users, and then we will force him
-                to login again */
-                Logout(history)
-            }
-            else setTaskError(response)
-        }
-        else {
-            console.log('Carregando Tasks')
-            for (let i = 0; i < response.length; i++) {
-                response[i].dateRegistration = new Date(response[i].dateRegistration).toLocaleString()
-            }
-
-            setTasks(response) /* We set the tasks */
-            setTasksLoaded(true) /* And tell the APP that tasks are available */
-            hideLoading('Loading your tasks')
-        }
-    }
-
     async function createTask(values) {
+        showLoading('Creating Task')
         /* Send the values to create a new Task in DB */
         const [hasErrors, response] = await CreateTask(values)
         /* If there is some error we set him to Component show to User */
+        hideLoading('Creating Task')
         if (hasErrors) {
-            hideLoading('Loading your tasks')
-
             if (response === 'Unauthorized') {
                 /* Show a loading screen telling the user that he must login again */
-                showLoading('You need to authenticate again, redirecting you to login page...')
+                showLoading('Your session expired, log in again')
                 setTimeout(() => {
-                    hideLoading('You need to authenticate again, redirecting you to login page...')
+                    hideLoading('Your session expired, log in again')
                 }, 2000)
                 /* If this happens, that means that the backEnd doesn't accept the token of this users, and then we will force him
                 to login again */
@@ -99,13 +77,11 @@ const TaskProvider = ({ children }) => {
         showLoading('Updating your task')
         const [hasErrors, response] = await UpdateTask(values, taskId)
         if (hasErrors) {
-            hideLoading('Loading your tasks')
-
             if (response === 'Unauthorized') {
                 /* Show a loading screen telling the user that he must login again */
-                showLoading('You need to authenticate again, redirecting you to login page...')
+                showLoading('Your session expired, log in again')
                 setTimeout(() => {
-                    hideLoading('You need to authenticate again, redirecting you to login page...')
+                    hideLoading('Your session expired, log in again')
                 }, 2000)
                 /* If this happens, that means that the backEnd doesn't accept the token of this users, and then we will force him
                 to login again */
@@ -129,15 +105,16 @@ const TaskProvider = ({ children }) => {
 
     async function updateTaskStatus(task) {
         task.completed = !task.completed
+        showLoading('Updating Task')
         const [hasErrors, response] = await UpdateTask(task, task.id)
-        if (hasErrors) {
-            hideLoading('Loading your tasks')
+        hideLoading('Updating Task')
 
+        if (hasErrors) {
             if (response === 'Unauthorized') {
                 /* Show a loading screen telling the user that he must login again */
-                showLoading('You need to authenticate again, redirecting you to login page...')
+                showLoading('Your session expired, log in again')
                 setTimeout(() => {
-                    hideLoading('You need to authenticate again, redirecting you to login page...')
+                    hideLoading('Your session expired, log in again')
                 }, 2000)
                 /* If this happens, that means that the backEnd doesn't accept the token of this users, and then we will force him
                 to login again */
@@ -159,15 +136,16 @@ const TaskProvider = ({ children }) => {
     }
 
     async function deleteTask(taskId) {
-        const [hasErrors, response] = await DeleteTask(taskId)
-        if (hasErrors) {
-            hideLoading('Loading your tasks')
+        showLoading('Deleting Task')
 
+        const [hasErrors, response] = await DeleteTask(taskId)
+        hideLoading('Deleting Task')
+        if (hasErrors) {
             if (response === 'Unauthorized') {
                 /* Show a loading screen telling the user that he must login again */
-                showLoading('You need to authenticate again, redirecting you to login page...')
+                showLoading('Your session expired, log in again')
                 setTimeout(() => {
-                    hideLoading('You need to authenticate again, redirecting you to login page...')
+                    hideLoading('Your session expired, log in again')
                 }, 2000)
                 /* If this happens, that means that the backEnd doesn't accept the token of this users, and then we will force him
                 to login again */
@@ -181,7 +159,6 @@ const TaskProvider = ({ children }) => {
             setTasks(newTasks)
         }
     }
-
 
     return (
         <tasksContext.Provider

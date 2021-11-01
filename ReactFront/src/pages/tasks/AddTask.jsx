@@ -32,9 +32,7 @@ const AddTask = () => {
                     type="text"
                     placeholder='Put some task here to save'
                 />
-                <div className="add-task-button-container">
-                    <Button onClick={handleAddTaskClick}>Add your Task</Button>
-                </div>
+                <Button onClick={handleAddTaskClick} id='add-task-button'>Save</Button>
             </div>
             <div className='description-container'>
                 <textarea

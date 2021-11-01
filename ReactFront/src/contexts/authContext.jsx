@@ -16,14 +16,28 @@ const AuthProvider = ({ children }) => {
 
     /* This hook verify if there is some user or token in localStorage and load the user in the APP */
     useEffect(() => {
-        const storedUser = localStorage.getItem('Tasks:user')
         const storedToken = localStorage.getItem('Tasks:token')
 
-        if (storedUser && storedToken) {
-            setUser(JSON.parse(storedUser))
-            api.defaults.headers.Authorization = `Bearer ${storedToken}`
-        }
+        if (storedToken) LoadUser(storedToken)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    async function LoadUser(token) {
+        showLoading('Loading user')
+        api.defaults.headers.Authorization = `Bearer ${token}` /* Configure the token for the request */
+
+        const [hasErrors, response] = await auth.LoadUser(token)
+        if (hasErrors) {
+            hideLoading('Loading user')
+            setUser()
+            localStorage.clear()
+        }
+        else {
+            hideLoading('Loading user')
+            setUser(response)
+        }
+
+    }
 
     async function Login(values, history) {
         showLoading('Sending your data...') /* Show the loading screen with this message */
@@ -35,9 +49,9 @@ const AuthProvider = ({ children }) => {
         } else {
             setLoginError('') /* Clear any past error */
             api.defaults.headers.Authorization = `Bearer ${response.token}` /* Configure the token for others requests */
-            localStorage.setItem('Tasks:user', JSON.stringify(response.user)); /* Store the user in local Storage */
             localStorage.setItem('Tasks:token', response.token) /* Store the token if needed, i'm not sure if does */
             /* The two following lines should be in that order */
+
             history.push('/') /* Change the URL to send the user to tasks dashboard */
             setUser(response.user) /* Authenticate the user */
         }
@@ -52,7 +66,6 @@ const AuthProvider = ({ children }) => {
         } else {
             setRegisterError('')
             api.defaults.headers.Authorization = `Bearer ${response.token}`
-            localStorage.setItem('Tasks:user', JSON.stringify(response.user));
             localStorage.setItem('Tasks:token', response.token)
             history.push('/') /* Change the URL to send the user to tasks dashboard */
             setUser(response.user) /* Authenticate the user */

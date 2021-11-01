@@ -1,17 +1,25 @@
 .add-task-container {
     height: auto;
+    max-width: 500px;
 }
 
 .title-btn-container {
     margin-top: 15px;
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 8fr 2fr;
+    gap: 5px;
     align-items: center;
 }
 
 .description-container {
     margin: 5px 0px 10px 0px;
     display: flex;
+}
+
+#add-task-button {
+    width: 100%;
+    font-size: 15px;
 }
 
 .description-input {
@@ -22,7 +30,7 @@
     width: 100%;
     background-color: #444;
     color: #eee;
-    font-size: 15px;
+    font-size: 14px;
     resize: none;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -35,7 +43,7 @@
     flex: 2;
     background-color: #444;
     color: #eee;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .add-task-button-container {

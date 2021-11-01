@@ -20,22 +20,6 @@ export function CreateTask(values) {
     })
 }
 
-export function LoadTasks() {
-    return new Promise((resolve, reject) => {
-        api.get('/tasks').then((response) => {
-            resolve([false, response.data])
-        }).catch((err) => {
-            if (err.response) { /* If got a response back with some error, means that the server received the request */
-                resolve([true, err.response.statusText])
-            } else if (err.request) { /* If we got here, we never received the response from the server or the request never left */
-                resolve([true, 'Our server is currently offline'])
-            } else {
-                resolve([true, 'Unknown Error'])
-            }
-        })
-    })
-}
-
 export function UpdateTask(values, taskId) {
     return new Promise((resolve, reject) => {
         api.put(`/tasks/${taskId}`, values).then((response, request) => {

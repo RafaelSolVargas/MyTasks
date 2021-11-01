@@ -39,5 +39,25 @@ export function Login(values) {
             }
         })
     })
+}
 
+export function LoadUser(token) {
+    return new Promise((resolve, reject) => {
+        api.get('/users').then((response) => {
+            resolve([false, response.data])
+        }).catch((err) => {
+            if (err.response) { /* If got a response back with some error, means that the server received the request */
+                if (err.response.statusText === 'Unauthorized') {
+                    resolve([true, 'Wrong password or email'])
+                }
+                else {
+                    resolve([true, 'Some validation error'])
+                }
+            } else if (err.request) { /* If we got here, we never received the response from the server or the request never left */
+                resolve([true, 'Our server is currently offline'])
+            } else {
+                resolve([true, 'Unknown Error'])
+            }
+        })
+    })
 }

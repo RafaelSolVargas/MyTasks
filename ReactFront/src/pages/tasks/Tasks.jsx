@@ -7,6 +7,8 @@ import Button from "../../components/Button";
 /* Context */
 import { useAuth } from "../../contexts/authContext";
 import { useTasks } from "../../contexts/tasksContext";
+/* CSS */
+import '../../styles/Task.css'
 
 // A div de Tasks renderiza uma Task para cada valor que veio de seu ancestral
 const Tasks = () => {
@@ -28,12 +30,12 @@ const Tasks = () => {
                             task={eachTask}
                         />)}
                     <div>
-                        {<Button children='Logout' onClick={handleLogout}></Button>}
+                        {<Button children='Logout' onClick={handleLogout} id='btn-logout'></Button>}
                     </div>
                 </>
                 :
                 <>
-                    {<Button children='Logout' onClick={handleLogout}></Button>}
+                    {<Button children='Logout' onClick={handleLogout} id='btn-logout'></Button>}
                 </>}
         </>
 

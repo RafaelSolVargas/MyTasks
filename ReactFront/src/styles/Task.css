@@ -29,3 +29,7 @@
     background-color: #444;
     margin: 0 5px;
 }
+
+#btn-logout {
+    font-size: 14px;
+}
