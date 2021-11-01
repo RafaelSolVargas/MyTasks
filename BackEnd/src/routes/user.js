@@ -1,14 +1,11 @@
 const { Router } = require('express');
-
 /* Controllers */
 const { getUser, deleteUser, updateUser } = require('../controllers/user')
-
 /* MiddleWares e Validator geral */
 const { isAuthenticated } = require('../middlewares/isAuth');
 
 const userRouter = Router();
-userRouter
-    .use(isAuthenticated);
+userRouter.use(isAuthenticated);
 
 userRouter
     .get('/', getUser) // USER - Ele mesmo

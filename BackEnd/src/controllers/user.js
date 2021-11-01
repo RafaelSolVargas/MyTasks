@@ -9,7 +9,6 @@ module.exports = {
             include: [
                 {
                     association: 'userTasks',
-                    attributes: [title]
                 },
             ],
         });
@@ -40,7 +39,6 @@ module.exports = {
                 {
                     name,
                     password,
-                    email,
                 },
                 {
                     where: {

@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const { v4: uuidv4 } = require('uuid')
 const { Task } = require('../models');
 
 module.exports = {
@@ -60,6 +61,7 @@ module.exports = {
         try {
             const task = await Task.create(
                 {
+                    id: uuidv4(),
                     userId,
                     title,
                     description,

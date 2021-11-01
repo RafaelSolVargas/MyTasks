@@ -1,7 +1,6 @@
-/* Carrega o .env na raiz do projeto */
-require('dotenv').config();
+const env = process.env.NODE_ENV || 'development';
 
-module.exports = {
+dbConnections = {
     development: {
         username: process.env.DEV_DB_USER,
         password: process.env.DEV_DB_PASSWORD,
@@ -43,5 +42,7 @@ module.exports = {
                 rejectUnauthorized: false
             }
         },
-    },
-};
+    }
+}
+
+module.exports = dbConnections[env]

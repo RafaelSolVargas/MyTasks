@@ -1,4 +1,3 @@
-/* Criação do App  */
 require('dotenv').config();
 const { associateModels, stablishConnection } = require('./src/models');
 
@@ -7,7 +6,7 @@ async function initializeServer() {
     await associateModels(sequelize) /* Start the associations between the tables  */
     await sequelize.sync() /* Sync the database of Heroku with this */
 
-    const app = require('./src/app'); /* Now require the app */
+    const app = require('./src/app'); /* creating the the app */
 
     /* Esse process.env.PORT será escolhido pelo Heroku */
     const PORT = process.env.PORT || 3333;

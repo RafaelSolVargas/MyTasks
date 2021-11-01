@@ -1,16 +1,33 @@
-/* eslint no-param-reassign: "error" */
-/* eslint no-underscore-dangle: ["error", { "allowAfterThis": true }] */
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const teste = require('../config/authEnv')
-
 module.exports = (sequelize, DataTypes) => {
     const Task = sequelize.define(
         'Task',
         {
-            title: DataTypes.STRING,
-            description: DataTypes.TEXT,
-            completed: DataTypes.BOOLEAN,
+            id: {
+                type: DataTypes.STRING,
+                primaryKey: true
+            },
+            userId: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                references: { model: 'User', key: 'id' },
+                onUpdate: 'CASCADE',
+                onDelete: 'CASCADE',
+            },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            description: {
+                type: DataTypes.TEXT,
+            },
+            completed: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false,
+            },
+            dateRegistration: {
+                type: DataTypes.DATE,
+                allowNull: false,
+            },
         },
         {
             sequelize,

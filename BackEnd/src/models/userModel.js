@@ -1,5 +1,3 @@
-/* eslint no-param-reassign: "error" */
-/* eslint no-underscore-dangle: ["error", { "allowAfterThis": true }] */
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/authEnv')
@@ -8,9 +6,27 @@ module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(
         'User',
         {
-            name: DataTypes.STRING,
-            email: DataTypes.STRING,
-            password: DataTypes.STRING,
+            id: {
+                type: DataTypes.STRING,
+                primaryKey: true,
+                allowNull: false,
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            dateRegistration: {
+                type: DataTypes.DATE,
+                allowNull: false,
+            },
         },
         {
             sequelize,
