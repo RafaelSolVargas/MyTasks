@@ -9,7 +9,7 @@ import { useLoading } from "./loadingContext";
 const tasksContext = createContext();
 
 const TaskProvider = ({ children }) => {
-    const [tasks, setTasks] = useState([{}])
+    const [tasks, setTasks] = useState([])
     const [taskError, setTaskError] = useState('')
     const [tasksLoaded, setTasksLoaded] = useState(false)
     const { showLoading, hideLoading } = useLoading()
@@ -27,6 +27,9 @@ const TaskProvider = ({ children }) => {
             setTasks(user.userTasks)
             setTasksLoaded(true)
             hideLoading('Loading Tasks')
+        }
+        else {
+            setTasksLoaded(true)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
