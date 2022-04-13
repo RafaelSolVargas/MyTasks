@@ -25,7 +25,7 @@ async function stablishConnection() {
 }
 
 async function associateModels(sequelize) {
-    /* Passa por todos os arquivos dessa pasta e importa o Model, executando e guardando no obj db */
+    /* Pass for all files of this folder, import the Model and store in db object */
     fs
         .readdirSync(__dirname)
         .filter(
@@ -35,6 +35,9 @@ async function associateModels(sequelize) {
             const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
             db[model.name] = model;
         });
+
+    /* Execute the sync with Heroku Database before going to associate */
+    await sequelize.sync()
 
     /* Chama a associação de cada Model */
     Object.keys(db).forEach((modelName) => {

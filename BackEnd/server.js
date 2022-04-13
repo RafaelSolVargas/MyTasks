@@ -4,7 +4,6 @@ const { associateModels, stablishConnection } = require('./src/models');
 async function initializeServer() {
     const sequelize = await stablishConnection() /* Await the BackEnd connect to Heroku Database */
     await associateModels(sequelize) /* Start the associations between the tables  */
-    await sequelize.sync() /* Sync the database of Heroku with this */
 
     const app = require('./src/app'); /* creating the the app */
 
